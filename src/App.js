@@ -5,6 +5,7 @@ import { Route, Routes, Link } from 'react-router-dom'
 import Main from './Main'
 import Header from './Header'
 import GList from './GList'
+import All from './All'
 
 const App = () => {
 
@@ -43,7 +44,7 @@ const App = () => {
           })
         }
       </Routes>
-
+      <All />
 
       <List genre='Drama' limit={20} />
       <List genre='Action' limit={20} />
