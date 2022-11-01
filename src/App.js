@@ -4,6 +4,7 @@ import './common.scss'
 import { Route, Routes, Link } from 'react-router-dom'
 import Main from './Main'
 import Header from './Header'
+import GList from './GList'
 
 const App = () => {
 
@@ -31,12 +32,13 @@ const App = () => {
 
 
       <Routes>
+
         <Route path='/' element={<Main genre='Action' limit={50} />}></Route>
         {
 
           genreList.map((it) => {
             return (
-              <Route path={it} element={<List genre={it} limit={5} />}></Route>
+              <Route path={it} element={<GList genre={it} limit={50} />}></Route>
             )
           })
         }
