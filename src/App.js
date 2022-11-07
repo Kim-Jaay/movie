@@ -1,55 +1,69 @@
 import React, { useState } from 'react'
-import List from './List'
+import List from './List';
 import './common.scss'
-import { Route, Routes, Link } from 'react-router-dom'
-import Main from './Main'
-import Header from './Header'
-import GList from './GList'
-import All from './All'
+import { Link, Route, Routes } from 'react-router-dom';
+import Main from './Main';
+import Header from './Header';
+import GList from './GList';
+import All from './All';
+import Detail from './Detail';
+import SearchResult from './SearchResult';
 
 const App = () => {
-
-
   const genreList = [
-    'Action', 'Adventure', 'Animation', 'Comedy', 'Crime', 'Drama', 'Fantasy', 'Romance', 'Thriller', 'Western'
-  ]
+    "Action",
+    "Adventure",
+    "Animation",
+    "Comedy",
+    "Crime",
+    "Drama",
+    "Fantasy",
+    "Romance",
+    "Thriller",
+    "Western"
+  ];
+  const [movie, setMovie] = useState([]);
   return (
     <div>
+
       <Header>
         <ul className='flex'>
           {
-            genreList.map((it) => {
+            genreList.map((it, idx) => {
               return (
-                <li>
+                <li key={idx}>
                   <Link to={it}>{it}</Link>
                 </li>
-
               )
             })
           }
         </ul>
       </Header>
-
-
-
       <Routes>
-
-        <Route path='/' element={<Main genre='Action' limit={50} />}></Route>
+        <Route path="/" element={<Main limit={50} />}>
+          <Route path="/detail/:id" element={<Detail />} />
+        </Route>
         {
-
-          genreList.map((it) => {
+          genreList.map((it, idx) => {
             return (
-              <Route path={it} element={<GList genre={it} limit={50} />}></Route>
+              <Route path={it} element={<GList genre={it} limit={20} />} key={idx}>
+                <Route path={`/${it}/:id`} element={<Detail limit={50} />} />
+              </Route>
             )
           })
         }
-      </Routes>
-      <All />
 
-      <List genre='Drama' limit={20} />
-      <List genre='Action' limit={20} />
-      <List genre='Horror' limit={20} />
-    </div >
+        <Route path="/search" element={<SearchResult limit={50} />}>
+          <Route path="/search/:id" element={<Detail />} />
+        </Route>
+
+      </Routes>
+      {/* <SearchResult /> */}
+
+      {/* <All /> */}
+
+
+    </div>
   )
 }
 
